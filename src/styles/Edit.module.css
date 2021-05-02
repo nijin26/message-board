@@ -1,0 +1,19 @@
+.container {
+  flex-grow: 1;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card {
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bolder;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 3px #000;
+  border-radius: 10px;
+}

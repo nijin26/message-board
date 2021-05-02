@@ -1,7 +1,7 @@
 import React from "react";
 
-const View = () => {
-  return <div> I am view</div>;
+const View = ({ message }) => {
+  return <div> {message} </div>;
 };
 
 export default View;

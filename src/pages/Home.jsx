@@ -1,24 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import randomChar from "../utils/randomChar";
 
 import styles from "../styles/Home.module.css";
+
+const id = randomChar(5);
 
 const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [link, setLink] = useState("");
+  const [copySuccess, setCopySuccess] = useState("");
+  const textAreaRef = useRef(null);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    const uniqueId = localStorage.getItem("id");
+    if (uniqueId) return history.push("/edit");
+  });
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setLink(() => name.replace(/\s+/g, "").toLowerCase() + "_" + randomChar(5));
+    const uniqueId = name.replace(/\s+/g, "").toLowerCase() + "_" + id;
+    setLink(() => uniqueId);
     const register = {
       name,
       email,
       number,
+      id,
     };
-    console.log(register);
+    localStorage.setItem("id", uniqueId);
   };
+
+  const copyToClipboard = (e) => {
+    textAreaRef.current.select();
+    document.execCommand("copy");
+    e.target.focus();
+    setCopySuccess("Copied!");
+    setTimeout(() => {
+      history.push("/edit");
+    }, 3000);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -46,7 +72,19 @@ const Home = () => {
             Register
           </button>
         </form>
-        {link != "" && <div className={styles.link}>{link}</div>}
+        {link != "" && (
+          <div className={styles.link}>
+            <input
+              type="text"
+              ref={textAreaRef}
+              value={`${window.location.protocol}//${window.location.host}/${link}`}
+            />
+            <button onClick={copyToClipboard}>
+              Copy & Create Your Message
+            </button>
+          </div>
+        )}
+        <div>{copySuccess}</div>
       </div>
     </div>
   );

@@ -7,12 +7,14 @@
 }
 
 .card {
+  border-radius: 20px;
   padding: 20px;
   height: max-content;
   max-width: 500px;
   width: 80%;
   border: 1px solid #ccc;
   box-shadow: 1px 2px 3px #000;
+  text-align: center;
 }
 
 form {
@@ -28,6 +30,8 @@ form > input {
   margin: 10px auto;
   width: 90%;
   font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 form > button {
@@ -41,4 +45,18 @@ form > button {
   text-align: center;
   font-size: 1.6rem;
   font-weight: 400;
+}
+
+.link > input {
+  display: block;
+  padding: 8px 12px;
+  width: 70%;
+  margin: 10px auto;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+button {
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
