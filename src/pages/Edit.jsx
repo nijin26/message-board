@@ -9,6 +9,7 @@ const quickMessages = [
   { id: 2, title: "Use Sanitizer" },
   { id: 3, title: "Please Wait" },
   { id: 4, title: "Wear Mask" },
+  { id: 5, title: "Wash Your Hands" },
 ];
 
 const Edit = () => {
@@ -28,7 +29,19 @@ const Edit = () => {
           </div>
         ))}
       </section>
-      <View message={selectedMsg} />
+      <section className={styles.custom}>
+        <input
+          type="text"
+          className={styles.message}
+          onChange={(e) => setSelectedMsg(e.target.value)}
+          placeholder="Message"
+        />
+
+        <button className={styles.btn}>Submit</button>
+      </section>
+      <section className={styles.view}>
+        <View message={selectedMsg} />
+      </section>
     </div>
   );
 };

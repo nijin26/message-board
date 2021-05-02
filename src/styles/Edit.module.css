@@ -6,14 +6,49 @@
 
 .cards {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
 .card {
+  margin: 5px 12px;
   padding: 20px;
   font-size: 1.8rem;
   font-weight: bolder;
   border: 1px solid #ccc;
   box-shadow: 1px 2px 3px #000;
   border-radius: 10px;
+}
+
+.custom {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.custom * {
+  margin: 0 10px;
+}
+
+.message {
+  padding: 5px 8px;
+  width: 50%;
+  font-size: 1.8rem;
+}
+
+.view {
+  overflow-y: auto;
+}
+
+.btn {
+  display: inline;
+  width: 30%;
+  max-width: 200px;
+  padding: 10px 16px;
+  font-size: 1.8rem;
+  border-radius: 2px;
 }
