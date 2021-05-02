@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// import { db } from "../utils/firebase";
+import axios from "../utils/axios";
+
+import { useHistory } from "react-router-dom";
 
 import styles from "../styles/Edit.module.css";
 
@@ -13,8 +17,30 @@ const quickMessages = [
 ];
 
 const Edit = () => {
-  const [selectedMsg, setSelectedMsg] = useState("");
+  const [selectedMsg, setSelectedMsg] = useState("Keep Distance");
 
+  const history = useHistory();
+  const userId = localStorage.getItem("name");
+
+  useEffect(() => {
+    if (!localStorage.getItem("id")) return history.push("/");
+    submitHandler();
+  }, []);
+
+  const submitHandler = (title) => {
+    let data;
+    if (title) {
+      setSelectedMsg(title);
+      data = {
+        title,
+      };
+    } else {
+      data = {
+        title: selectedMsg,
+      };
+    }
+    axios.put(`/users/${userId}/message.json`, data);
+  };
   return (
     <div className={styles.container}>
       <section className={styles.cards}>
@@ -22,7 +48,7 @@ const Edit = () => {
           <div
             className={styles.card}
             key={msg.id}
-            onClick={() => setSelectedMsg(msg.title)}
+            onClick={() => submitHandler(msg.title)}
           >
             {" "}
             {msg.title}
@@ -35,9 +61,12 @@ const Edit = () => {
           className={styles.message}
           onChange={(e) => setSelectedMsg(e.target.value)}
           placeholder="Message"
+          value={selectedMsg}
         />
 
-        <button className={styles.btn}>Submit</button>
+        <button className={styles.btn} onClick={() => submitHandler()}>
+          Submit
+        </button>
       </section>
       <section className={styles.view}>
         <View message={selectedMsg} />

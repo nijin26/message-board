@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+// import { db } from "../utils/firebase";
+import axios from "../utils/axios";
 
 import randomChar from "../utils/randomChar";
 
@@ -20,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     const uniqueId = localStorage.getItem("id");
     if (uniqueId) return history.push("/edit");
-  });
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -30,9 +32,15 @@ const Home = () => {
       name,
       email,
       number,
-      id,
+      uniqueId,
+      message: {
+        title: "",
+      },
     };
     localStorage.setItem("id", uniqueId);
+    axios.post("/users.json", register).then((res) => {
+      localStorage.setItem("name", res.data.name);
+    });
   };
 
   const copyToClipboard = (e) => {
